@@ -1,0 +1,69 @@
+define-rules
+  name: Prerequisite
+  antes: p
+  contact:
+    p is _
+  conclusion:
+    p;
+
+define-rules
+  name: ModusPonens
+  antes: pq, p
+  contact:
+    pq is (-> p q),
+    p is _,
+    q is _
+  conclusion: 
+    q;
+
+define-rules
+  name: ModusTollens
+  antes: pq, nq
+  contact:
+    pq is (-> p q),
+    nq is (not q),
+    p is _,
+    q is _
+  conclusion:
+    (not p);
+
+define-rules
+  name: HypoSyllogism
+  antes: pq, qr
+  contact:
+    pq is (-> p q),
+    qr is (-> q r),
+    p is _,
+    r is _
+  conclusion:
+    (-> p r);
+
+
+let(a, 'a);
+let(b, 'b);
+let(r, 'r);
+
+let(c, -> a b);
+let(d, not b);
+assert d
+by d
+using Prerequisite;
+assert c
+by c
+using Prerequisite;
+
+let(e, not a);
+assert e
+by c, d
+using ModusTollens;
+
+let(f, -> b r);
+assert f
+by f
+using Prerequisite;
+
+let(g, -> a r);
+assert g
+by c, f
+using HypoSyllogism
+

@@ -1,0 +1,6 @@
+let(p, undefined)
+let(q, undefined)
+let(r, undefined)
+
+let(l1, and (not p) q)
+let(l2, not p)
