@@ -1,2 +1,0 @@
-(module identity 'just-lambda
-    (lambda (x) x))
